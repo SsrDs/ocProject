@@ -1,0 +1,26 @@
+<div id="courseSection">
+    <#if sectionVOList??>
+        <#list sectionVOList as item>
+            <div class="chapter">
+            <a href="javascript:void(0);" class="js-open">
+            <h3>
+            <strong><div class="icon-chapter">=</div>${item.name!}</strong>
+        <span class="drop-down">▼</span>
+            </h3>
+            </a>
+            <ul class="chapter-sub">
+            <#if item.sections??>
+                <#list item.sections as section>
+                    <a href="/course/video/${section.id!}.html" >
+                    <li class="chapter-sub-li">
+                <i class="icon-video">▶</i>${section.name!}(${section.time!})
+                    </li>
+                    </a>
+                </#list>
+            </#if>
+            </ul>
+            </div>
+        </#list>
+    </#if>
+
+</div>
