@@ -1,0 +1,47 @@
+package com.online.core.consts.service;
+
+import com.online.common.page.TailPage;
+import com.online.core.consts.domain.ConstsCollege;
+
+public interface IConstsCollegeService {
+
+    /**
+     * 分页获取
+     * @param queryEntity
+     * @param page
+     * @return
+     */
+    TailPage<ConstsCollege> queryPage(ConstsCollege queryEntity, TailPage<ConstsCollege> page);
+
+    /**
+     * 根据id获取
+     * @param id
+     * @return
+     */
+    ConstsCollege getById(Long id);
+
+    /**
+     * 添加信息
+     * @param constsCollege
+     */
+    void createSelectivity(ConstsCollege constsCollege);
+
+    /**
+     * 修改信息
+     * @param constsCollege
+     */
+    void updateSelectivity(ConstsCollege constsCollege);
+
+    /**
+     * 根据code获取
+     * @param code
+     * @return
+     */
+    ConstsCollege getByCode(String code);
+
+    /**
+     * 逻辑删除
+     * @param constsCollege
+     */
+    void deleteLogic(ConstsCollege constsCollege);
+}
