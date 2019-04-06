@@ -15,7 +15,7 @@
     <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">  
         <constructor-arg value="rememberMe"/>
         <property name="path" value="/"/>  
-        <property name="httpOnly" value="true"/>  
+        <property name="httpOnly" value="true"/>
         <property name="maxAge" value="2592000"/><!-- 30天 -->  
     </bean>
     <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">  
