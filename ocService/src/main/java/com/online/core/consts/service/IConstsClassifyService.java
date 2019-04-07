@@ -17,4 +17,29 @@ public interface IConstsClassifyService {
      * @return
      */
     ConstsClassify getByCode(String c);
+
+    /**
+     * 根据id获取
+     * @param id
+     * @return
+     */
+    ConstsClassify getById(Long id);
+
+    /**
+     * 添加
+     * @param constsClassify
+     */
+    void createSelectivity(ConstsClassify constsClassify);
+
+    /**
+     * 修改
+     * @param constsClassify
+     */
+    void updateSelectivity(ConstsClassify constsClassify);
+
+    /**
+     * 逻辑删除
+     * @param id
+     */
+    void deleteLogic(Long id);
 }

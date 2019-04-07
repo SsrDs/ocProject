@@ -1,5 +1,6 @@
 package com.online.core.auth.service;
 
+import com.online.common.page.TailPage;
 import com.online.core.auth.domain.AuthUser;
 
 import java.util.List;
@@ -45,4 +46,12 @@ public interface IAuthUserService {
      * @param authUser
      */
     void updateSelectivity(AuthUser authUser);
+
+    /**
+     * 分页查询
+     * @param queryEntity
+     * @param page
+     * @return
+     */
+    TailPage<AuthUser> queryPage(AuthUser queryEntity, TailPage<AuthUser> page);
 }

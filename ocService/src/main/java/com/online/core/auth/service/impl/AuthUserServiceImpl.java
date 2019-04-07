@@ -1,5 +1,6 @@
 package com.online.core.auth.service.impl;
 
+import com.online.common.page.TailPage;
 import com.online.common.storage.QiniuStorage;
 import com.online.core.auth.dao.AuthUserDao;
 import com.online.core.auth.domain.AuthUser;
@@ -61,6 +62,14 @@ public class AuthUserServiceImpl implements IAuthUserService {
 
     public void updateSelectivity(AuthUser authUser) {
         authUserDao.updateSelectivity(authUser);
+    }
+
+    public TailPage<AuthUser> queryPage(AuthUser queryEntity, TailPage<AuthUser> page) {
+        Integer itemsTatiaCount = authUserDao.getItemsTatilCount(queryEntity);
+        List<AuthUser> items = authUserDao.queryPage(queryEntity,page);
+        page.setItemsTotalCount(itemsTatiaCount);
+        page.setItems(items);
+        return page;
     }
 
 }

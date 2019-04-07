@@ -27,36 +27,6 @@ public class AuthController {
     private IAuthUserService authUserService;
 
     /**
-     * 注册页面
-     */
-    @RequestMapping(value = "/register")
-    public ModelAndView register(){
-        if (SessionContext.isLogin())
-            return new ModelAndView("redirect:/index.html");
-        return new ModelAndView("auth/register");
-    }
-
-    /**
-     * 实现注册
-     */
-    @RequestMapping(value = "/doRegister")
-    @ResponseBody
-    public String doRegister(AuthUser authUser, String identiryCode, HttpServletRequest request){
-        //验证码判断
-        if (null != identiryCode && !identiryCode.equalsIgnoreCase(SessionContext.getIdentifyCode(request))){
-            return JsonView.render(2);
-        }
-        AuthUser authUser1 =authUserService.getByUsername(authUser.getUsername());
-        if (authUser1 != null){
-            return JsonView.render(1);
-        }else {
-            authUser.setPassword(EncryptUtil.encodedByMD5(authUser.getPassword()));
-            authUserService.createSelectivity(authUser);
-            return JsonView.render(0);
-        }
-    }
-
-    /**
      * 登录界面
      * @return
      */
@@ -65,34 +35,15 @@ public class AuthController {
         return new ModelAndView("auth/login");
     }
 
+
     /**
-     * ajax登录
-     * @param authUser
-     * @param identiryCode
+     * 登录
+     * @param user
      * @param rememberMe
+     * @param identiryCode
      * @param request
      * @return
      */
-    @RequestMapping("/ajaxLogin")
-    @ResponseBody
-    public String ajaxLogin(AuthUser authUser,String identiryCode,Integer rememberMe,HttpServletRequest request){
-        //验证码判断
-        if (null != identiryCode && !identiryCode.equalsIgnoreCase(SessionContext.getIdentifyCode(request))){
-            return JsonView.render(2,"验证码不正确");
-        }
-        Subject currentUser = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(authUser.getUsername(),EncryptUtil.encodedByMD5(authUser.getPassword()));
-        try {
-            if (rememberMe != null && rememberMe == 1){
-                token.setRememberMe(true);
-            }
-            currentUser.login(token);       //shiro:不抛出异常，登录成功
-            return new JsonView().toString();
-        } catch (AuthenticationException e) {   //登录失败
-            return JsonView.render(1,"用户名或密码不正确");
-        }
-    }
-
     @RequestMapping(value = "/doLogin")
     public ModelAndView doLogin(AuthUser user, Integer  rememberMe, String identiryCode, HttpServletRequest request){
         //如果已经登录过

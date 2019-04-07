@@ -1,5 +1,6 @@
 package com.online.core.auth.dao;
 
+import com.online.common.page.TailPage;
 import com.online.core.auth.domain.AuthUser;
 
 import java.util.List;
@@ -43,4 +44,19 @@ public interface AuthUserDao {
      * @param authUser
      */
     void updateSelectivity(AuthUser authUser);
+
+    /**
+     * 获取总数
+     * @param queryEntity
+     * @return
+     */
+    Integer getItemsTatilCount(AuthUser queryEntity);
+
+    /**
+     * 分页查询
+     * @param queryEntity
+     * @param page
+     * @return
+     */
+    List<AuthUser> queryPage(AuthUser queryEntity, TailPage<AuthUser> page);
 }

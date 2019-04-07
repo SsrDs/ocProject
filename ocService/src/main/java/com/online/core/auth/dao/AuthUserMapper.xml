@@ -41,6 +41,33 @@
         del, id
     </sql>
 
+    <select id="queryPage" resultType="com.online.core.auth.domain.AuthUser">
+        SELECT
+            <include refid="all_Columns"/>
+        FROM t_auth_user
+        WHERE del = 0
+        <if test="param1.username != null">
+            AND username like CONCAT('%',#{param1.username},'%')
+        </if>
+        <if test="param1.status != null">
+            AND status = #{param1.status}
+        </if>
+        LIMIT #{param2.startIndex,jdbcType=INTEGER} ,#{param2.pageSize,jdbcType=INTEGER}
+    </select>
+
+    <select id="getItemsTatilCount" parameterType="com.online.core.auth.domain.AuthUser" resultType="java.lang.Integer">
+        SELECT
+            COUNT(*)
+        FROM t_auth_user
+        WHERE del = 0
+        <if test="username != null">
+            AND username like CONCAT('%',#{username},'%')
+        </if>
+        <if test="status != null ">
+            AND status = #{status}
+        </if>
+    </select>
+
     <update id="updateSelectivity" parameterType="com.online.core.auth.domain.AuthUser">
         UPDATE t_auth_user
         <trim prefix="SET" suffixOverrides="," >

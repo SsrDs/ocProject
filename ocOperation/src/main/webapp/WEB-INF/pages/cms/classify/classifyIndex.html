@@ -37,7 +37,7 @@
 							<tbody>
 								<#if classifys??>
 								<#list classifys as item>
-								<tr class="tr-bg-gray" code="${item.code!}">
+								<tr name="showActive" class="tr-bg-gray" code="${item.code!}">
 									<td>${item.name!}</td>
 									<td>${item.code!}</td>
 									<td>
@@ -99,7 +99,7 @@
 					</div>
 					
 					<div class="modal-body">
-						<form role="form" id="myForm" method="post" action="${s.base}/classify/doMerge.html">
+						<form role="form" id="myForm" method="post" action="/classify/doMerge.html">
 							<input type="hidden" name="id" value=""/>
 							<div class="form-group">
 								<label for="name">一级分类</label> 
@@ -159,8 +159,10 @@
 	
 	<script type="text/javascript">
 		$(function(){
-			//一级分类点击，过滤二级分类 
+			//一级分类点击，过滤二级分类
 			$('.tr-bg-gray').click(function(){
+			    $("tr[name='showActive']").removeAttr('class');
+			    $(this).attr('class','active');
 				var code = $(this).attr('code');
 				$('#subClassifysTable').find('tr').each(function(i,item){
 					if($(item).attr('parentCode') == code){
@@ -172,7 +174,7 @@
 					}
 				});
 			});
-			
+
 		});
 		
 		//添加 & 编辑
@@ -183,7 +185,7 @@
 			}else{
 				$('#code').attr('disabled','disabled');
 				$.ajax({
-					url:'${s.base}/classify/getById.html',
+					url:'/classify/getById.html',
 				    type:'POST',
 				    dataType:'json',
 				    data:{"id":id},
@@ -222,7 +224,7 @@
 		function doDelete(id){
 			Modal.confirm('确定删除?',function(){
 				$.ajax({
-					url:'${s.base}/classify/deleteLogic.html',
+					url:'/classify/deleteLogic.html',
 				    type:'POST',
 				    dataType:'json',
 				    data:{"id":id},

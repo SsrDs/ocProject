@@ -113,7 +113,7 @@
 					</div>
 					
 					<div class="modal-body">
-						<form id="myForm" role="form" id="ff" action="${s.base}/user/doMerge.html">
+						<form id="myForm" role="form" id="ff" action="/user/doMerge.html">
 							<input type="hidden"  name="id" />
 							<div class="form-group">
 								<label for="name">名称</label> 
@@ -146,7 +146,7 @@
 	<script type="text/javascript">
 		function toEdit(id){
 			$.ajax({
-				url:'${s.base}/user/getById.html',
+				url:'/user/getById.html',
 			    type:'POST',
 			    dataType:'json',
 			    data:{"id":id},

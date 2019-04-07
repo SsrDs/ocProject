@@ -27,4 +27,20 @@ public class ConstsClassifyServiceImpl implements IConstsClassifyService {
         }
     }
 
+    public ConstsClassify getById(Long id) {
+        return classifyDao.getById(id);
+    }
+
+    public void createSelectivity(ConstsClassify constsClassify) {
+        classifyDao.createSelectivity(constsClassify);
+    }
+
+    public void updateSelectivity(ConstsClassify constsClassify) {
+        classifyDao.updateSelectivity(constsClassify);
+    }
+
+    public void deleteLogic(Long id) {
+        classifyDao.deleteLogic(id);
+    }
+
 }
