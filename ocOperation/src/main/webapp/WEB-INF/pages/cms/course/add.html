@@ -316,7 +316,7 @@
 			}
 			//JSON.stringify(batchSections);
 			$.ajax({
-				url:'${s.base}/courseSection/batchAdd.html',
+				url:'/courseSection/batchAdd.html',
 			    type:'POST',
 			    contentType: "application/json",
 			    dataType:'json',
@@ -325,7 +325,7 @@
 			    	var errcode = resp.errcode;
 			    	if(errcode == 0){
 			    		//保存成功，跳转到详情页
-			    		window.location.href='${s.base}/course/read.html?id=' + courseId;
+			    		window.location.href='/course/read.html?id=' + courseId;
 			    	}
 			    }
 			});
@@ -364,7 +364,7 @@
 						var resp = $.parseJSON(resp);
 						if (resp.errcode == 0) {
 							//保存成功，跳转到详情页
-				    		window.location.href='${s.base}/course/read.html?id=' + courseId;
+				    		window.location.href='/course/read.html?id=' + courseId;
 						} else {
 							alert('保存失败');
 						}

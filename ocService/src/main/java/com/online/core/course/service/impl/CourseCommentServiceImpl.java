@@ -29,4 +29,8 @@ public class CourseCommentServiceImpl implements ICourseCommentService {
     public CourseComment getById(Long refId) {
         return commentDao.getById(refId);
     }
+
+    public void delete(CourseComment entity) {
+        commentDao.delete(entity);
+    }
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.online.core.statics.dao.CourseStudyStaticsDao">
+    <select id="queryCourseStudyStatistics" parameterType="com.online.core.statics.domain.CourseStudyStaticsDto"
+            resultType="com.online.core.statics.domain.CourseStudyStaticsDto">
+        SELECT count(id) totalCount , date_format(create_time,'%Y-%m-%d') as dateStr
+        FROM t_user_course_section
+        WHERE course_id = #{courseId}
+		<![CDATA[
+          AND CREATE_TIME >= #{startDate}
+          AND CREATE_TIME <= #{endDate}
+		]]>
+		GROUP BY date_format(create_time,'%Y-%m-%d')
+        ORDER BY create_time
+    </select>
+</mapper>

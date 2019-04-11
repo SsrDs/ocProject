@@ -25,4 +25,10 @@ public interface ICourseCommentService {
      * @return
      */
     CourseComment getById(Long id);
+
+    /**
+     * 物理删除
+     * @param entity
+     */
+    void delete(CourseComment entity);
 }

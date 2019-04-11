@@ -43,4 +43,10 @@ public interface UserCourseSectionDao {
      * @return
      */
     List<UserCourseSectionDto> queryPage(UserCourseSection queryEntity, TailPage<UserCourseSectionDto> page);
+
+    /**
+     * 添加
+     * @param userCourseSection
+     */
+    void createSelectivity(UserCourseSection userCourseSection);
 }

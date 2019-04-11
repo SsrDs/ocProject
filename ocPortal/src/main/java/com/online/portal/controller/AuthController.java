@@ -5,6 +5,7 @@ import com.online.common.web.JsonView;
 import com.online.common.web.SessionContext;
 import com.online.core.auth.domain.AuthUser;
 import com.online.core.auth.service.IAuthUserService;
+import com.online.web.EmailUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -15,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.Cookie;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 
 @Controller
@@ -38,13 +42,35 @@ public class AuthController {
     }
 
     /**
+     * 获取验证码
+     * @param mail
+     * @param response
+     * @param request
+     * @throws IOException
+     * @throws AddressException
+     * @throws MessagingException
+     */
+    @RequestMapping("/doEm")
+    public void doEm(String mail, HttpServletResponse response, HttpServletRequest request) throws IOException, AddressException, MessagingException {
+        PrintWriter out = response.getWriter();
+        response.setCharacterEncoding("utf-8");
+        int idcode = (int) (Math.random()*100000);
+        String text = Integer.toString(idcode);
+        request.getSession().setAttribute("idcode", text);
+        EmailUtil emailUtil = new EmailUtil();
+        String code = emailUtil.toEmail(mail,request);
+        System.out.println(code);
+        out.write("success");
+    }
+
+    /**
      * 实现注册
      */
     @RequestMapping(value = "/doRegister")
     @ResponseBody
     public String doRegister(AuthUser authUser, String identiryCode, HttpServletRequest request){
-        //验证码判断
-        if (null != identiryCode && !identiryCode.equalsIgnoreCase(SessionContext.getIdentifyCode(request))){
+        //邮箱验证码判断
+        if (null != identiryCode && !identiryCode.equalsIgnoreCase(request.getSession().getAttribute("code").toString())){
             return JsonView.render(2);
         }
         AuthUser authUser1 =authUserService.getByUsername(authUser.getUsername());

@@ -36,4 +36,8 @@ public class UserCourseSectionServiceImpl implements IUserCourseSectionService {
         page.setItems(items);
         return page;
     }
+
+    public void createSelectivity(UserCourseSection userCourseSection) {
+        userCourseSectionDao.createSelectivity(userCourseSection);
+    }
 }

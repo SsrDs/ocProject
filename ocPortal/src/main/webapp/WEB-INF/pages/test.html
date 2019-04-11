@@ -1,0 +1,177 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>在线网校学习平台</title>
+    <script type="text/javascript" src="/res/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $("#sendidcode").click(function(){
+                if($("#mail").val() == ""){
+                    $("#sendidcode").attr("disabled","true");
+                    $("#sendidcode").val("邮箱地址未填");
+                    setTimeout(function(){
+                        $("#sendidcode").removeAttr("disabled");
+                        $("#sendidcode").val("发送验证码");
+                    },900);
+                    return;
+                }
+                var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+                if(!myreg.test($("#mail").val())){
+                    $("#sendidcode").attr("disabled","true");
+                    $("#sendidcode").val("邮箱格式错误");
+                    setTimeout(function(){
+                        $("#sendidcode").removeAttr("disabled");
+                        $("#sendidcode").val("发送验证码");
+                    },900);
+                    return;
+                }
+                $("#sendidcode").attr("value","正在发送");
+                $("#sendidcode").attr("disabled","true");
+                $.ajax({
+                    url:"doEm.html",
+                    type:"GET",
+                    //发送数据的第一种格式，字符串...
+                    data:"mail="+$("#mail").val(),
+                    timeout:5000,
+                    success:function(data){
+                        $("#sendidcode").attr("value","验证码已发送");
+                    },
+                    error:function(){
+
+                    }
+                });
+            });
+        });
+    </script>
+
+
+
+    <style type="text/css">
+        .content{
+            border-radius: 5px;
+            background: white;
+            width: 550px;
+            height: 450px;
+            margin: 10px auto;
+            border: 1px solid lightgray;
+        }
+
+        .left{
+            display: inline-block;
+            text-align: right;
+            width:170px;
+        }
+        .in{
+            line-height: 50px;
+            width: 550px;
+            margin: 0 20px;
+            font-size: 10pt;
+        }
+        a{
+            font-size: 9pt;
+            text-decoration: none;
+            color: grey;
+        }
+        a:hover{
+            color: blue;
+        }
+        hr{
+            margin: 10px 20px;
+            border: none;
+            border-bottom: 1px dotted lightgrey;
+        }
+        .bottom{
+            float: right;
+
+            padding-right: 20px;
+            line-height: 60px;
+        }
+        input[type="submit"]{
+            background: rgba(22, 115, 11, 0.38);
+            border: 0 none;
+            width: 90px;
+            height: 30px;
+            border-radius: 3px;
+            color: white;
+        }
+        input[type="submit"]:hover{
+            background: rgb(77, 140, 70);
+        }
+        input[type="button"]:hover{
+            background: rgb(77, 140, 70);
+        }
+        input[type="button"]{
+            background: rgba(22, 115, 11, 0.38);
+            border: 0 none;
+            width: 90px;
+            height: 23px;
+            border-radius: 3px;
+            color: white;
+        }
+        input[type="reset"]{
+            background: rgb(179, 176, 176);
+            border: 0 none;
+            width: 90px;
+            height: 30px;
+            border-radius: 3px;
+            color: white;
+        }
+        input[type="reset"]:hover{
+            background: rgb(200, 200, 200);
+
+        }
+        .tip{
+            text-align: center;
+            font-size: 10pt;
+            color: grey;
+            background: white;
+            width: 530px;
+            height: 90px;
+            margin: 0px auto;
+            padding-left: 10px;
+            background: lightgrey;
+        }
+        body{
+            background: lightgrey;
+        }
+        .warning{
+            color:red;
+
+        }
+    </style>
+</head>
+<body>
+
+<div class="content">
+    <form action="/test/doSubmit.html" method="post">
+
+        <div class="in">
+            <span class="left">邮箱：</span>
+            <input type="email" required="required" placeholder="请输入有效邮箱地址" name="mail" id="mail"/>
+            <span><input type="button" value="发送验证码" id="sendidcode"></span>
+        </div>
+        <div class="in">
+            <span class="left">验证码：</span>
+            <input type="text" required="required" placeholder="请点击按钮发送验证码" name="idcode"/>
+            <span class="warning"></span>
+        </div>
+        <hr>
+        <div class="bottom">
+            <input type="submit" value="注册">
+            <input type="reset" value="重置">
+        </div>
+    </form>
+
+</div>
+<div class="tip">
+    提示：没有提示。
+</div>
+</body>
+</html>

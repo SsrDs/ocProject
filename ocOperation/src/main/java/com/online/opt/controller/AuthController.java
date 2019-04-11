@@ -32,6 +32,10 @@ public class AuthController {
      */
     @RequestMapping("/login")
     public ModelAndView login(){
+        //如果已经登录过
+        if(SessionContext.getAuthUser() != null){
+            return new ModelAndView("redirect:/cms/index.html");
+        }
         return new ModelAndView("auth/login");
     }
 
@@ -48,7 +52,7 @@ public class AuthController {
     public ModelAndView doLogin(AuthUser user, Integer  rememberMe, String identiryCode, HttpServletRequest request){
         //如果已经登录过
         if(SessionContext.getAuthUser() != null){
-            return new ModelAndView("redirect:/user/home.html");
+            return new ModelAndView("redirect:/cms/index.html");
         }
 
         //验证码判断
@@ -74,11 +78,15 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/logout")
-    public ModelAndView logout(HttpServletRequest request) {
+    public ModelAndView logout() {
         SessionContext.shiroLogout();
-        return new ModelAndView("redirect:/index.html");
+        return new ModelAndView("redirect:/auth/login.html");
     }
 
+
+    /**
+     * 测试
+     */
     @Test
     public void f(){
         AuthUser tmpAuthUser = new AuthUser();

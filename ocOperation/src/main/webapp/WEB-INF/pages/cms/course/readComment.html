@@ -32,7 +32,7 @@ function queryPage(page){
 		elId = 'qa';
 	}
 	//异步load
-	var url = '${s.base}/courseComment/pagelist.html';
+	var url = '/courseComment/pagelist.html';
 	$("#" + elId).load(
 		url,
 		{'courseId':courseId,'type':type,'pageNum':page},
@@ -43,7 +43,7 @@ function queryPage(page){
 function doDeleteComment(id){
 	Modal.confirm('确定删除?',function(){
 		$.ajax({
-			url:'${s.base}/courseComment/delete.html',
+			url:'/courseComment/delete.html',
 		    type:'POST',
 		    dataType:'json',
 		    data:{"id":id},

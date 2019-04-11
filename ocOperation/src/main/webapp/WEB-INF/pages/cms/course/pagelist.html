@@ -39,7 +39,7 @@
                 	<input type="hidden" id="sortDirection" name="sortDirection" value="${page.sortDirection!'DESC'}" />
                 	<input type="text" class="search-text" name="name" value="${(queryEntity.name)!}"  style="margin-top:5px;" placeholder="请输入课程名称">
                 	<input type="submit" class="search-btn" value="搜索" />
-                	<input type="button" class="search-btn" onclick="window.location.href='${s.base}/course/add.html'" value=" + 添加课程 " />
+                	<input type="button" class="search-btn" onclick="window.location.href='/course/add.html'" value=" + 添加课程 " />
                 </div>
 			</div>
 			
@@ -53,15 +53,15 @@
 								<tr id="tr-${item.id!}">
 									<td style="width:600px;">
 										<p>
-											<a href="${s.base}/course/read.html?id=${item.id!}">
+											<a href="/course/read.html?id=${item.id!}">
 												<#if (item.picture)?? && item.picture != ''>
 												<img src="${item.picture!}" style="width: 180px;height:100px;float: left;">
 												<#else>
-												<img src="${s.base}/res/i/course.png" style="width: 180px;height:100px;float: left;">
+												<img src="/res/i/course.png" style="width: 180px;height:100px;float: left;">
 												</#if>
 											</a>
 											<div class="ml-15 w-350" style="float:left;">
-												<a href="${s.base}/course/read.html?id=${item.id!}">
+												<a href="/course/read.html?id=${item.id!}">
 												<p class="ellipsis"  title="${item.name!}"><strong>${item.name!}</strong></p>
 												</a>
 												<p class="ellipsis-multi h-40" title="${item.brief!}">${item.brief!}</p>
@@ -165,7 +165,7 @@
 				sale = 0;
 			}
 			$.ajax({
-				url:'${s.base}/course/doSale.html',
+				url:'/course/doSale.html',
 			    type:'POST',
 			    dataType:'json',
 			    data:{"id":id,onsale:sale},
@@ -182,7 +182,7 @@
 		function doDelete(id){
 			Modal.confirm('课程章节将一并删除，确定删除?',function(){
 				$.ajax({
-					url:'${s.base}/course/doDelete.html',
+					url:'/course/doDelete.html',
 				    type:'POST',
 				    dataType:'json',
 				    data:{"id":id},

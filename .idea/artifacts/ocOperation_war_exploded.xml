@@ -19,6 +19,8 @@
           <element id="archive" name="ocCommon-1.0-SNAPSHOT.jar">
             <element id="module-output" name="ocCommon" />
           </element>
+          <element id="library" level="project" name="Maven: javax.mail:mail:1.4" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
           <element id="library" level="project" name="Maven: junit:junit:4.13-beta-2" />
           <element id="library" level="project" name="Maven: org.hamcrest:hamcrest-core:1.3" />
           <element id="archive" name="ocService-1.0-SNAPSHOT.jar">
@@ -59,7 +61,6 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:4.1.1.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.1.1.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-orm:4.1.1.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-test:4.1.1.RELEASE" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-core:1.2.2" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-web:1.2.2" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-cas:1.2.2" />

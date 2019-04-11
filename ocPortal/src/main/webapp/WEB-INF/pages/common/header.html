@@ -5,8 +5,8 @@
 			<a href="/index.html" class="header-nav-item">首 页</a>
 			<a href="/course/list.html" class="header-nav-item">课 程</a>
 			<a href="/user/home.html" class="header-nav-item">我的</a>
-			<a href="http://opt.ioswift.org" target="_blank" class="header-nav-item" style="width:100px;">运营CMS</a>
-			<a href="http://m.ioswift.org" target="_blank" class="header-nav-item" style="width:100px;">M站</a>
+			<a href="http://localhost:28080/cms/index.html" target="_blank" class="header-nav-item" style="width:100px;">运营CMS</a>
+			<#--<a href="http://m.ioswift.org" target="_blank" class="header-nav-item" style="width:100px;">M站</a>-->
 		</nav>
 
 		<nav class="header-nav" style="float:right">
@@ -70,7 +70,7 @@
 	<div class="modal-body">
 	<form id="loginForm" class="form-horizontal" style="padding: 0px 20px;" method="POST" action="/auth/ajaxLogin.html">
 <div class="form-group">
-	<input id="usernameHeader1"  type="text" class="form-control"  name="username" placeholder="用户名">
+	<input id="usernameHeader1"  type="text" maxlength="50" class="form-control"  name="username" placeholder="用户名">
 </div>
 <div class="form-group help">
 	<input id="passwordHeader1"  type="password" class="form-control"  name="password"  placeholder="密　码">
@@ -98,9 +98,12 @@
 <div class="form-group help">
 	<input id="passwordHeader2"  name="password"  type="password" class="form-control"  placeholder="密　码">
 </div>
+<div class="form-group help">
+	<input id="mail"  name="mail"  type="text" class="form-control"  placeholder="邮　箱">
+</div>
 	<div class="form-group">
 <input id="identiryCodeHeader2" class="form-control"  name="identiryCode" maxlength="6" class="input-text" type="text" style="width: 120px;float:left;" placeholder="请输入验证码"/>
-<img  onclick="reloadIndityImg('indeityImgHead2');" id="indeityImgHead2"  src="/captcha/getCaptchaCode.html" style="width:80px;height:33px;float:left;margin-left:10px;float:left;border-radius:5px;"/>
+		<div><input class="btn" type="button" value="获取验证码" id="sendidcode"></div>
 	<span id="registerError" style="margin-left:10px;height:33px;line-height:33px;color:red;display:none;">错误信息</span>
 	</div>
 	<a href="javascript:void(0)">
@@ -114,6 +117,47 @@
 
 <script type="text/javascript">
     $(function(){
+
+        //邮箱验证start
+        $("#sendidcode").click(function(){
+            if($("#mail").val() == ""){
+                $("#sendidcode").attr("disabled","true");
+                $("#sendidcode").val("地址未填");
+                setTimeout(function(){
+                    $("#sendidcode").removeAttr("disabled");
+                    $("#sendidcode").val("发送验证码");
+                },900);
+                return;
+            }
+            var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+            if(!myreg.test($("#mail").val())){
+                $("#sendidcode").attr("disabled","true");
+                $("#sendidcode").val("格式错误");
+                setTimeout(function(){
+                    $("#sendidcode").removeAttr("disabled");
+                    $("#sendidcode").val("发送验证码");
+                },900);
+                return;
+            }
+            $("#sendidcode").attr("value","正在发送");
+            $("#sendidcode").attr("disabled","true");
+            $.ajax({
+                url:"/auth/doEm.html",
+                type:"GET",
+                //发送数据的第一种格式，字符串...
+                data:"mail="+$("#mail").val(),
+                timeout:5000,
+                success:function(data){
+                    $("#sendidcode").attr("value","验证码已发送");
+                },
+                error:function(){
+
+                }
+            });
+        });
+        //邮箱验证end
+
+
         var headPhoto = $('#headerUserHeader').attr('src');
         if(headPhoto == null || headPhoto == '' || headPhoto == 'null'){
             var headPhoto = "/res/i/header.jpg";

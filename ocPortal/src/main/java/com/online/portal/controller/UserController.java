@@ -17,6 +17,10 @@ import com.online.core.user.service.IUserCollectionsService;
 import com.online.core.user.service.IUserCourseSectionService;
 import com.online.core.user.service.IUserFollowService;
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.SimplePrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,6 +64,8 @@ public class UserController {
         queryEntity.setUserId(SessionContext.getUserId());
         page.setPageSize(3);
         page = userFollowService.queryUserFollowStudyRecordPage(queryEntity,page);
+
+
 
         //处理用户头像
         for (UserFollowStudyRecord item :page.getItems()){
@@ -124,13 +130,20 @@ public class UserController {
     @RequestMapping("/saveInfo")
     @ResponseBody
     public String saveInfo(AuthUser authUser, @RequestParam MultipartFile pictureImg){
+        String key = null;
         try {
             authUser.setId(SessionContext.getUserId());
             if (null != pictureImg && pictureImg.getBytes().length > 0){
-                String key = QiniuStorage.uploadImage(pictureImg.getBytes());
+                key = QiniuStorage.uploadImage(pictureImg.getBytes());
                 authUser.setHeader(key);
             }
             authUserService.updateSelectivity(authUser);
+
+            Subject subject = SecurityUtils.getSubject();
+            AuthUser authUser1 = (AuthUser) subject.getPrincipal();
+            //修改属性
+            authUser1.setHeader(QiniuStorage.getUrl(key));
+
         } catch (IOException e) {
             e.printStackTrace();
         }

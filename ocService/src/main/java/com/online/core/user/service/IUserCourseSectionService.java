@@ -31,4 +31,10 @@ public interface IUserCourseSectionService {
      * @return
      */
     TailPage<UserCourseSectionDto> queryPage(UserCourseSection queryEntity, TailPage<UserCourseSectionDto> page);
+
+    /**
+     * 添加
+     * @param userCourseSection
+     */
+    void createSelectivity(UserCourseSection userCourseSection);
 }

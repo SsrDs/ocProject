@@ -75,16 +75,21 @@ public class CourseController {
         mv.addObject("courseList",courseList);
 
         //当前学习的章节
-        UserCourseSection userCourseSection = new UserCourseSection();
-        userCourseSection.setCourseId(courseId);
-        userCourseSection.setUserId(SessionContext.getUserId());
-        userCourseSection = userCourseSectionService.queryLatest(userCourseSection);
-        if(null != userCourseSection){
-            CourseSection curCourseSection = courseSectionService.getById(userCourseSection.getSectionId());
-            mv.addObject("curCourseSection",curCourseSection);
+        if (null != SessionContext.getUserId()) {
+            UserCourseSection userCourseSection = new UserCourseSection();
+            userCourseSection.setCourseId(courseId);
+            userCourseSection.setUserId(SessionContext.getUserId());
+            userCourseSection = userCourseSectionService.queryLatest(userCourseSection);
+            if (null != userCourseSection) {
+                CourseSection curCourseSection = courseSectionService.getById(userCourseSection.getSectionId());
+                mv.addObject("curCourseSection", curCourseSection);
+            } else {
+                CourseSection courseSection = new CourseSection();
+                mv.addObject("curCourseSection", courseSection);
+            }
         }else {
             CourseSection courseSection = new CourseSection();
-            mv.addObject("curCourseSection",courseSection);
+            mv.addObject("curCourseSection", courseSection);
         }
         return mv;
     }
@@ -140,6 +145,8 @@ public class CourseController {
             userCourseSection.setCreateUser(SessionContext.getUsername());
             userCourseSection.setUpdateTime(new Date());
             userCourseSection.setUpdateUser(SessionContext.getUsername());
+
+            userCourseSectionService.createSelectivity(userCourseSection);
         }else {
             result.setUpdateTime(new Date());
             userCourseSectionService.update(result);

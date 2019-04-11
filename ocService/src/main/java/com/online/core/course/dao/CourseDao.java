@@ -29,5 +29,28 @@ public interface CourseDao {
      */
     List<Course> queryPage(Course queryEntity, TailPage<Course> page);
 
+    /**
+     * 根据id获取
+     * @param courseId
+     * @return
+     */
     Course getById(Long courseId);
+
+    /**
+     * 修改用户
+     * @param entity
+     */
+    void updateSelectivity(Course entity);
+
+    /**
+     * 物理删除
+     * @param entity
+     */
+    void delete(Course entity);
+
+    /**
+     * 添加
+     * @param course
+     */
+    void createSelectivity(Course course);
 }

@@ -30,7 +30,7 @@
 									<#if (course.picture)?? && course.picture != ''>
 									<img src="${course.picture!}" style="width: 180px;height:100px;float: left;">
 									<#else>
-									<img src="${s.base}/res/i/course.png" style="width: 180px;height:100px;float: left;">
+									<img src="/res/i/course.png" style="width: 180px;height:100px;float: left;">
 									</#if>
 									<div class="ml-15 w-350" style="float:left;">
 										<p class="ellipsis"  title="${course.name!}"><strong>${course.name!}</strong></p>
@@ -60,7 +60,7 @@
 									</td>
 									<td style="width:120px;">
 										<p>推荐权重：${course.weight!}</p> 
-										<p><a href="${s.base}/course/read.html?id=${course.id!}" >返回</a></p> 
+										<p><a href="/course/read.html?id=${course.id!}" >返回</a></p>
 									</td>
 							</tr>
 						</tbody>
@@ -141,7 +141,7 @@
 					</div>
 					
 					<div class="modal-body">
-						<form role="form" id="importCourseSectionForm" method="post" action="${s.base}/courseSection/doImport.html"  enctype="multipart/form-data">
+						<form role="form" id="importCourseSectionForm" method="post" action="/courseSection/doImport.html"  enctype="multipart/form-data">
 							<div class="form-group clearfix"> 
 								<label class="control-label" style="width:150px;" >请选择文件(.xlsx) <span id="imgErrSpan" style="color:red;font-weight:normal;"></span> </label> 
 								<div class="col-sm-8">
@@ -257,7 +257,7 @@
 			}
 			//JSON.stringify(batchSections);
 			$.ajax({
-				url:'${s.base}/courseSection/batchAdd.html',
+				url:'/courseSection/batchAdd.html',
 			    type:'POST',
 			    contentType: "application/json",
 			    dataType:'json',
@@ -266,7 +266,7 @@
 			    	var errcode = resp.errcode;
 			    	if(errcode == 0){
 			    		//保存成功，跳转到详情页
-			    		window.location.href='${s.base}/course/read.html?id=' + courseId;
+			    		window.location.href='/course/read.html?id=' + courseId;
 			    	}
 			    }
 			});

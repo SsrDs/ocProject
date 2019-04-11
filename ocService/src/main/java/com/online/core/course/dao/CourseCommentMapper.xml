@@ -24,6 +24,11 @@
         <result column="course_name" property="courseName"  jdbcType="VARCHAR" />
     </resultMap>
 
+    <delete id="delete" parameterType="com.online.core.course.domain.CourseComment">
+        DELETE FROM t_course_comment
+        WHERE id = #{id, jdbcType=INTEGER}
+        OR ref_id = #{id, jdbcType=INTEGER}
+    </delete>
 
     <sql id="All_Columns">
         username, to_username, course_id, section_id, section_title, content,

@@ -10,7 +10,7 @@
         <#include "../../common/res.html" />
    </head>
    
-   <body class=""> 
+   <body class="">
   	<!-- top 导航 -->
     <#include "../../common/header.html" />
 	
@@ -18,7 +18,7 @@
     <#include "../cms-nav.html" />
     
     <div class="content">
-    	<input type="button" class="search-btn mt-10" style="margin-left: 15px;" onclick="window.location.href='${s.base}/carousel/toMerge.html'" value=" 添加轮播配置" />
+    	<input type="button" class="search-btn mt-10" style="margin-left: 15px;" onclick="window.location.href='/carousel/toMerge.html'" value=" 添加轮播配置" />
         <div class="container-fluid">
             
             <div class="row-fluid">
@@ -43,7 +43,7 @@
 									</td>
 									<td style="width:120px;">
 										<p>推荐权重：${item.weight!}</p> 
-										<p><a href="${s.base}/carousel/toMerge.html?id=${item.id!}">修改</a></p> 
+										<p><a href="/carousel/toMerge.html?id=${item.id!}">修改</a></p>
 										<p><a href="javascript:void(0);" onclick="doDelete(${item.id!});">删除</a></p> 
 									</td>
 								</tr>
@@ -86,7 +86,7 @@
 		function doDelete(id,el){
 			Modal.confirm('确定删除?',function(){
 				$.ajax({
-					url:'${s.base}/carousel/delete.html',
+					url:'/carousel/delete.html',
 				    type:'POST',
 				    dataType:'json',
 				    data:{"id":id},

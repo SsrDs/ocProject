@@ -6,10 +6,18 @@
 <script type="text/javascript">
 		<#if staticsVo??>
 			$(function () {
-				
-				var staticsVo = ${staticsVo!};//后台数据 
-				var categories = staticsVo.categories;
-				var data = staticsVo.data; 
+				<#--var staticsVo = ${staticsVo!};//后台数据-->
+				var categories = new Array();
+				<#--var a = JSON.parse(${staticsVo});-->
+				// alert(a);
+
+                <#list staticsVo.categories as item>
+                 categories.push("${item}");
+                </#list>
+				var data = new Array();
+				<#list staticsVo.data as item>
+					data.push(${item});
+				</#list>
 				
 				/* var categories = ['03-19', '03-20', '03-21', '03-22', '03-23', '03-24','03-25', '03-26'];
 				var data = [100, 200, 300, 145, 182, 215, 252, 265]; */

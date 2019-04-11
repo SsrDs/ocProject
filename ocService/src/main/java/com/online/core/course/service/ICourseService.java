@@ -28,4 +28,22 @@ public interface ICourseService {
      * @return
      */
     Course getById(Long courseId);
+
+    /**
+     * 修改课程
+     * @param entity
+     */
+    void updateSelectivity(Course entity);
+
+    /**
+     * 物理删除
+     * @param entity
+     */
+    void delete(Course entity);
+
+    /**
+     * 添加
+     * @param course
+     */
+    void createSelectivity(Course course);
 }

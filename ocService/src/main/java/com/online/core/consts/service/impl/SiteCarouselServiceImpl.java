@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class SiteCarouselServiceImpl implements ISiteCarouselService {
     @Autowired
-    private ConstsSiteCarouselDao SCSDao;
+    private ConstsSiteCarouselDao constsSiteCarouselDao;
 
     /**
      * 加载轮播图
@@ -20,7 +20,7 @@ public class SiteCarouselServiceImpl implements ISiteCarouselService {
      * @return
      */
     public List<ConstsSiteCarousel> queryCarousels(Integer count) {
-        List<ConstsSiteCarousel> resultList = SCSDao.queryCarousels(count);
+        List<ConstsSiteCarousel> resultList = constsSiteCarouselDao.queryCarousels(count);
         for (ConstsSiteCarousel item: resultList) {
             item.setPicture(QiniuStorage.getUrl(item.getPicture()));
 //            System.out.println(item.getPicture());

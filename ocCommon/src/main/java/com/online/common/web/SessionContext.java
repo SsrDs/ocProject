@@ -14,6 +14,7 @@ import com.online.common.web.auth.SessionUser;
 public class SessionContext {
 	public static final String IDENTIFY_CODE_KEY = "_consts_identify_code_key_";// 其他人不得占用
 	public static final String AUTH_USER_KEY = "_consts_auth_user_key_";// 其他人不得占用
+	public static final String EMAIL_USER_KEY = "_consts_email_user_key_";	//其他人不得占用
 
 	public static Long getUserId(){
 		if(null != getAuthUser()){
@@ -68,6 +69,15 @@ public class SessionContext {
 		if (request.getSession().getAttribute(IDENTIFY_CODE_KEY) != null) {
 			return getAttribute(request, IDENTIFY_CODE_KEY).toString();
 		} else {
+			return null;
+		}
+	}
+
+	//获取邮箱验证码
+	public static String getEmailUserKey(HttpServletRequest request){
+		if (request.getSession().getAttribute(EMAIL_USER_KEY) != null){
+			return getAttribute(request,IDENTIFY_CODE_KEY).toString();
+		}else {
 			return null;
 		}
 	}

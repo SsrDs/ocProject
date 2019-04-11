@@ -56,4 +56,16 @@ public class CourseServiceImpl implements ICourseService {
     public Course getById(Long courseId) {
         return courseDao.getById(courseId);
     }
+
+    public void updateSelectivity(Course entity) {
+        courseDao.updateSelectivity(entity);
+    }
+
+    public void delete(Course entity) {
+        courseDao.delete(entity);
+    }
+
+    public void createSelectivity(Course course) {
+        courseDao.createSelectivity(course);
+    }
 }

@@ -20,4 +20,24 @@ public class CourseSectionServiceImpl implements ICourseSectionService {
     public CourseSection getById(Long sectionId) {
         return sectionDao.getById(sectionId);
     }
+
+    public Integer getMaxSort(Long courseId) {
+        return sectionDao.getMaxSort(courseId);
+    }
+
+    public void createSelectivity(CourseSection courseSection) {
+        sectionDao.createSelectivity(courseSection);
+    }
+
+    public void createList(List<CourseSection> subCourseSections) {
+        sectionDao.createList(subCourseSections);
+    }
+
+    public void updateSelectivity(CourseSection courseSection) {
+        sectionDao.updateSelectivity(courseSection);
+    }
+
+    public void delete(CourseSection entity) {
+        sectionDao.delete(entity);
+    }
 }
